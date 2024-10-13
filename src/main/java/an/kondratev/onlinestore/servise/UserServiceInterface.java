@@ -1,5 +1,6 @@
 package an.kondratev.onlinestore.servise;
 
+import an.kondratev.onlinestore.dto.UserDTO;
 import an.kondratev.onlinestore.model.User;
 
 import java.util.List;
@@ -8,13 +9,13 @@ public interface UserServiceInterface {
 
     List<User> getUsers();
 
-    User findByEmail(String email);
+    User findById(long id);
 
-    void saveNewUser(User user);
+    User saveNewUser(UserDTO userDTO);
 
-    void deleteUserByEmail(String email);
+    User updateUser(User updatedUser);
 
-    void updateUser(User updatedUser);
+    void deleteUser(long id);
 
 }
 

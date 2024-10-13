@@ -1,10 +1,10 @@
 package an.kondratev.onlinestore.servise;
 
+import an.kondratev.onlinestore.dto.UserDTO;
 import an.kondratev.onlinestore.model.User;
 import an.kondratev.onlinestore.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,31 +14,34 @@ public class UserService implements UserServiceInterface {
 
     private final UserRepository userRepository;
 
+
+    @Override
+    public User findById(long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     @Override
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+    public User saveNewUser(UserDTO userDTO) {
+        User user = User.builder()
+                .email(userDTO.getEmail())
+                .name(userDTO.getName())
+                .build();
+        return userRepository.save(user);
     }
 
     @Override
-    public void saveNewUser(User user) {
-        userRepository.save(user);
+    public User updateUser(User updatedUser) {
+        return userRepository.save(updatedUser);
     }
 
-    @Transactional
     @Override
-    public void deleteUserByEmail(String email) {
-        userRepository.deleteByEmail(email);
-    }
-
-    @Transactional
-    @Override
-    public void updateUser(User updatedUser) {
-        userRepository.save(updatedUser);
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
     }
 }
 

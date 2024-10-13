@@ -16,16 +16,13 @@ public class OrderService implements OrderServiceInterface {
 
     @Override
     public void saveOrder(Order order) {
-        order.setStatus("PENDING");
-
+        order.setStatus("Активен");
         Set<Order> userOrders = order.getUser().getOrders();
         if (userOrders == null) {
             userOrders = new HashSet<>();
             order.getUser().setOrders(userOrders);
         }
-
         userOrders.add(order);
         ordersRepository.save(order);
     }
-
 }
