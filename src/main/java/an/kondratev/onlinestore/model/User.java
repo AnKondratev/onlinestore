@@ -1,10 +1,12 @@
 package an.kondratev.onlinestore.model;
 
+import an.kondratev.onlinestore.dto.Views;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -12,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "users")
+@JsonView(Views.UserSummary.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +28,5 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Order> orders;
+    private List<Order> orders;
 }

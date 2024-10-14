@@ -1,5 +1,8 @@
 package an.kondratev.onlinestore.model;
 
+import an.kondratev.onlinestore.dto.Views;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,8 +26,10 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
+    @JsonView(Views.UserSummary.class)
     @Column(nullable = false)
     private String orderName;
 
